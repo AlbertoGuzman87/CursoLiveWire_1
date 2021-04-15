@@ -9,7 +9,7 @@ class ShowPost extends Component
 {
     public $search;
     public $ordenanaBy = 'id';
-    public $direction = 'asc';
+    public $direction = 'desc';
 
     //arreglo que escucha el evento refresca
     protected $listeners = ['refresca' => 'render'];

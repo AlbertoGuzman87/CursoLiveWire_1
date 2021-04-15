@@ -23,7 +23,9 @@ class PostFactory extends Factory
     {
         return [
             'titulo' => $this->faker->sentence(),
-            'contenido' => $this->faker->text()
+            'contenido' => $this->faker->text(),
+            'imagen' => 'imgPost/' . $this->faker->image('public/storage/imgPost', 640, 480, null, false) //imgPost/imagen,
+            //Concatena nombre carpeta .donde guardara las imagenes,ancho,alto,categorias,true=ruta public/storage/imgPost/img1.jpg
         ];
     }
 }
