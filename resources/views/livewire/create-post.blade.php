@@ -33,7 +33,8 @@
 
             </div>
 
-            <div class="mb-4">
+            {{-- Wire ignore ayuda a no renderizar --}}
+            <div class="mb-4" wire:ignore>
                 <x-jet-label value="Contenido del Post" />
                 {{-- wire:model.defer
                     Ayuda a detener la comunicación de controlador y refrescar --}}
@@ -73,6 +74,11 @@
         <script>
             ClassicEditor
                 .create(document.querySelector('#editor'))
+                .then(function(editor) {
+                    editor.model.document.on('change:data', () => {
+                        @this.set('contenido', editor.getData());
+                    })
+                })
                 .catch(error => {
                     console.error(error);
                 });
