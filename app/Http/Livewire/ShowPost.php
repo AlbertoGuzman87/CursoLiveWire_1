@@ -21,6 +21,8 @@ class ShowPost extends Component
     public $direction = 'desc';
     //Variable para mostrar la cantidad de registros a mostrar
     public $cantidad = '10';
+    //Variable para aplazar la carga de la consulta
+    public $readyToLoad = false;
 
     //queryString es para que viaje por la URL en caso de compartir ese link
     //except para que no se muestre todas las variables con los valores definidos
@@ -71,10 +73,15 @@ class ShowPost extends Component
 
     public function render()
     {
-        $lisPost = Post::where('titulo', 'like', '%' . $this->search . '%')
-            ->Orwhere('contenido', 'like', '%' . $this->search . '%')
-            ->orderBy($this->ordenanaBy, $this->direction)
-            ->paginate($this->cantidad);
+
+        if ($this->readyToLoad) {
+            $lisPost = Post::where('titulo', 'like', '%' . $this->search . '%')
+                ->Orwhere('contenido', 'like', '%' . $this->search . '%')
+                ->orderBy($this->ordenanaBy, $this->direction)
+                ->paginate($this->cantidad);
+        } else {
+            $lisPost = [];
+        }
 
         return view('livewire.show-post', compact('lisPost'));
     }
@@ -97,5 +104,11 @@ class ShowPost extends Component
     {
         $this->post = $post;
         $this->open_edit = true;
+    }
+
+    //Cambia el valor $this->readyToLoad a True para realizar la consulta
+    public function loadPost()
+    {
+        $this->readyToLoad = true;
     }
 }

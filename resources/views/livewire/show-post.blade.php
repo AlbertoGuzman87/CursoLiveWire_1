@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 py-12">
+<div wire:init="loadPost" class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 py-12">
     <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
@@ -16,7 +16,7 @@
             <x-jet-input class="flex-1 mx-4" placeholder="Buscar..." type="text" wire:model="search" />
             @livewire('create-post')
         </div>
-        @if ($lisPost->count())
+        @if (count($lisPost))
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -110,6 +110,14 @@
                     @endforeach
                 </tbody>
             </table>
+            {{-- Valida que almenos exita una paginación para mostrar --}}
+            @if ($lisPost->hasPages())
+
+                <div class="px-6 py-3">
+                    {{ $lisPost->links() }}
+                </div>
+
+            @endif
 
         @else
             <div class="px-6 py-4">
@@ -117,14 +125,7 @@
             </div>
         @endif
 
-        {{-- Valida que almenos exita una paginación para mostrar --}}
-        @if ($lisPost->hasPages())
 
-            <div class="px-6 py-3">
-                {{ $lisPost->links() }}
-            </div>
-
-        @endif
 
 
     </x-table>
