@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/css/all.min.css') }}">
 
+    @stack('css')
+
     @livewireStyles
 
     <!-- Scripts -->
@@ -44,6 +46,7 @@
         </main>
     </div>
 
+    @stack('js')
     @stack('modals')
 
     @livewireScripts

@@ -16,9 +16,20 @@ class ShowPost extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $search;
+    public $search = '';
     public $ordenanaBy = 'id';
     public $direction = 'desc';
+    //Variable para mostrar la cantidad de registros a mostrar
+    public $cantidad = '10';
+
+    //queryString es para que viaje por la URL en caso de compartir ese link
+    //except para que no se muestre todas las variables con los valores definidos
+    protected $queryString = [
+        'cantidad'  => ['except' => '10'],
+        'ordenanaBy' => ['except' => 'id'],
+        'direction' => ['except' => 'desc'],
+        'search'    => ['except' => ''],
+    ];
 
     public $post, $imagen, $identificador;
     public $open_edit = false;
@@ -63,7 +74,7 @@ class ShowPost extends Component
         $lisPost = Post::where('titulo', 'like', '%' . $this->search . '%')
             ->Orwhere('contenido', 'like', '%' . $this->search . '%')
             ->orderBy($this->ordenanaBy, $this->direction)
-            ->paginate(10);
+            ->paginate($this->cantidad);
 
         return view('livewire.show-post', compact('lisPost'));
     }

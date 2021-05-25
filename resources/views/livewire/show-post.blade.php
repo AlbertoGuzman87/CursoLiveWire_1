@@ -1,7 +1,19 @@
 <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8 py-12">
     <x-table>
         <div class="px-6 py-4 flex items-center">
-            <x-jet-input class="flex-1 mr-4" placeholder="Buscar..." type="text" wire:model="search" />
+            <div class="flex items-center">
+                <span>Mostrar</span>
+                <select wire:model="cantidad" class="mx-2 form-control">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>
+                    Entradas
+                </span>
+            </div>
+            <x-jet-input class="flex-1 mx-4" placeholder="Buscar..." type="text" wire:model="search" />
             @livewire('create-post')
         </div>
         @if ($lisPost->count())

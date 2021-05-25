@@ -37,7 +37,7 @@
                 <x-jet-label value="Contenido del Post" />
                 {{-- wire:model.defer
                     Ayuda a detener la comunicación de controlador y refrescar --}}
-                <textarea wire:model="contenido" name="" class="form-control w-full" rows="6"></textarea>
+                <textarea wire:model="contenido" id="editor" class="form-control w-full" rows="6"></textarea>
 
                 <x-jet-input-error for="contenido" />
 
@@ -67,4 +67,17 @@
         </x-slot>
 
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'))
+                .catch(error => {
+                    console.error(error);
+                });
+
+        </script>
+    @endpush
+
 </div>
